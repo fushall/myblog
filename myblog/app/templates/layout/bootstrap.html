@@ -1,0 +1,30 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}基于bootstrap4的页面{%endblock title %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+{% block content %}
+{% endblock content %}
+
+{% block scripts %}
+
+  {% block myscripts %}
+  {% endblock %}
+{% endblock scripts %}
+
+{% block styles %}
+  {{ library('bootstrap/4.1.1/bootstrap.css', cdn_libfilename='bootstrap.min.css') }}
+  <style>
+    body {
+      background: #EBEBEB;
+      margin: 60px auto 0 auto;2
+      max-width: 375px;
+    }
+
+  .container-fluid {
+    padding: 0;
+  }
+  </style>
+{% endblock styles %}
