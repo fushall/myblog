@@ -15,7 +15,7 @@ class LibraryManager:
         if app is not None:
             self.init_app(app)
 
-    def register_lib(self, pkg):
+    def register_library(self, pkg):
         library = pkg.Library
 
         name = library.name
@@ -31,7 +31,7 @@ class LibraryManager:
         for module in iter_modules(prefix=f'{__package__}.', path=__path__):
             if module.ispkg is True and module.name.startswith('_') is False:
                 pkg = import_module(f'{module.name}')
-                self.register_lib(pkg)
+                self.register_library(pkg)
 
         blueprint = Blueprint('library', __name__, url_prefix='/library')
 
