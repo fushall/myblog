@@ -30,11 +30,14 @@ class StyleTag(Tag):
         return Markup(f'<link href="{self.href}" rel="stylesheet">')
 
 
-def tagmaker(fileurl):
-    if fileurl.endswith('.css'):
-        tag = StyleTag(fileurl)
-    elif fileurl.endswith('.js'):
-        tag = ScriptTag(fileurl)
+def tagmaker(url_of_file):
+    if url_of_file.endswith('.css'):
+        tag = StyleTag(url_of_file)
+
+    elif url_of_file.endswith('.js'):
+        tag = ScriptTag(url_of_file)
+
     else:
-        tag = DivTag(fileurl)
+        tag = DivTag(url_of_file)
+
     return tag
