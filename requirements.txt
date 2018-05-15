@@ -5,7 +5,9 @@ Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
 itsdangerous==0.24
 Jinja2==2.10
+Markdown==2.6.11
 MarkupSafe==1.0
+Pygments==2.2.0
 PyMySQL==0.8.1
 SQLAlchemy==1.2.7
 Werkzeug==0.14.1

@@ -19,16 +19,12 @@
 
 {% block styles %}
   {{ library('bootstrap/4.1.1/bootstrap.min.css', cdn={'version':'4.1.0'}) }}
-
+  {% block mystyles %}
   <style>
     body {
       background: #EBEBEB;
-      margin: 60px auto 0 auto;
-      max-width: 375px;
     }
 
-    .container-fluid {
-      padding: 0;
-    }
   </style>
+  {% endblock %}
 {% endblock styles %}
