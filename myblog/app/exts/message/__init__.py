@@ -35,6 +35,8 @@ class Message:
 
         messages = ''
         for (cate, msg) in get_flashed_messages(with_categories=True):
+            if cate == 'message':
+                cate = 'warning'
             messages += _TEMPLATE.format(message=msg, category=cate)
 
         return Markup(messages)

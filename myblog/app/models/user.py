@@ -13,7 +13,7 @@ class UserModel(db.Model, Mixin, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Unicode(16), nullable=False)
+    name = db.Column(db.Unicode(16), nullable=False, unique=True)
     password_hash = db.Column(db.Unicode(128), nullable=False)
 
     @property
@@ -33,10 +33,10 @@ class UserModel(db.Model, Mixin, UserMixin):
 
 
 def create_user(username, password):
-    user = UserModel(username=username, password=password)
+    user = UserModel(name=username, password=password)
     user.save()
 
 
 def get_user(user_id: int):
-    user = UserModel.query.filter_by(int(user_id))
+    user = UserModel.query.get(int(user_id))
     return user

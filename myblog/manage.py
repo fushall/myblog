@@ -14,7 +14,7 @@ def create_app():
             drop_all=drop_all,
             create_all=create_all,
             UserModel=UserModel,
-            create_user=create_use r
+            create_user=create_user
         )
 
     print(app.url_map)

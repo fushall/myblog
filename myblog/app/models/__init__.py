@@ -20,10 +20,10 @@ class Mixin:
 
 
 def drop_all(app):
-    with app.with_context():
+    with app.app_context():
         db.drop_all()
 
 
 def create_all(app):
-    with app.with_context():
+    with app.app_context():
         db.create_all()

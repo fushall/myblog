@@ -15,13 +15,16 @@ def index():
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    print(form.data)
     if form.validate_on_submit():
-        user = UserModel.query.filter_by(name=form.username).first()
-        if user and UserModel.verify_password(form.username.data):
+        user = UserModel.query.filter_by(name=form.username.data).first()
+        if user and user.verify_password(form.password.data):
             login_user(user, remember=form.remember.data)
             flash('脸上笑嘻嘻:)')
-            return redirect(url_for('admin.index'))
-        flash('滚！（怒）')
+        else:
+            flash('滚蛋！( o｀ω′)ノ')
+        return redirect(url_for('admin.index'))
+
     return render_template('admin/login.html', form=form)
 
 
