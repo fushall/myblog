@@ -1,28 +1,35 @@
 from flask import Flask
+from flask_login import LoginManager
 
 from app.configs import init_configs
 from app.views import register_views
 from app.models import db
+from app.models.user import get_user
 from app.exts.library import LibraryManager
-
-
+from app.exts.message import Message
 
 def create_app():
-    #: 创建Flask实例对象
     app = Flask(__name__)
 
-    #: 初始化配置
+    # config
     init_configs(app)
 
-    #: 初始化数据库
+    # database
     db.init_app(app)
 
-    #: 各种扩展
-    #: [css, js 本地/cdn 切换器]
+    # flask-login
+    login = LoginManager(app)
+    login.login_view = 'admin.login'
+    login.user_loader(lambda user_id: get_user(user_id))
+
+    # exts.library
     from . import libraries
     LibraryManager(app, libraries)
 
-    # 注册错误页面，蓝图
+    # exts.message
+    Message(app)
+
+    # views and blueprints.
     register_views(app)
 
     return app

@@ -1,6 +1,6 @@
 {% extends 'layout/base.html' %}
 
-{% block title %}基于bootstrap4的页面{%endblock title %}
+{% block title %}基于bootstrap4的页面{% endblock title %}
 
 {% block navbar %}
 {% endblock navbar %}
@@ -9,22 +9,25 @@
 {% endblock content %}
 
 {% block scripts %}
-
+  {{ library('bootstrap/4.1.1/bootstrap.min.js', cdn={'version':'4.1.0'}) }}
+  {{ library('jquery/3.3.1/jquery.min.js') }}
+  {{ library('popper.js/1.14.3/popper.min.js') }}
   {% block myscripts %}
   {% endblock %}
 {% endblock scripts %}
 
 {% block styles %}
   {{ library('bootstrap/4.1.1/bootstrap.css', cdn={'version':'4.1.0'}) }}
+
   <style>
     body {
       background: #EBEBEB;
-      margin: 60px auto 0 auto;2
+      margin: 60px auto 0 auto;
       max-width: 375px;
     }
 
-  .container-fluid {
-    padding: 0;
-  }
+    .container-fluid {
+      padding: 0;
+    }
   </style>
 {% endblock styles %}

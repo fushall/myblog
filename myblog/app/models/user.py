@@ -1,4 +1,7 @@
-# coding: utf8
+"""
+myblog是单人博客，user即admin
+"""
+
 
 from . import db, Mixin
 
@@ -25,10 +28,15 @@ class UserModel(db.Model, Mixin, UserMixin):
         return check_password_hash(self.password_hash, password)
 
     @classmethod
-    def create_user(cls, name, password):
-        return cls(name=name, password=password)
-
-    @classmethod
     def get_user(cls, name):
         return cls.query.filter_by(name=name).first()
 
+
+def create_user(username, password):
+    user = UserModel(username=username, password=password)
+    user.save()
+
+
+def get_user(user_id: int):
+    user = UserModel.query.filter_by(int(user_id))
+    return user

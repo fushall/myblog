@@ -1,0 +1,47 @@
+{% extends 'layout/bootstrap.html' %}
+
+
+{% block title %}
+  后台 - 兴小院
+{% endblock %}
+
+
+{% block content %}
+  <div id="app" class="container-fluid pl-2 pr-2">
+    <div class="card p-4">
+      <h5 class="text-center mt-4 mb-4">想管理博客了吗？</h5>
+      <form class="mt-4" action="{{ url_for('admin.login') }}" method="post">
+        {{ message() }}
+        <div class="form-group">
+          {{ form.hidden_tag() }}
+          {{ form.username(required="", class="form-control", placeholder="输入登陆账号", style="position: relative; padding: 10px; margin-bottom: -1px; border-bottom-right-radius: 0; border-bottom-left-radius: 0;") }}
+          {{ form.password(required="", class="form-control", placeholder="输入登陆密码", style="position: relative; padding: 10px; border-top-right-radius: 0; border-top-left-radius: 0;") }}
+        </div>
+        <div class="form-check d-flex justify-content-between">
+          {{ form.remember(class="form-check-input") }}
+          {{ form.remember.label(class='form-check-label') }}
+        </div>
+        <div class="form-group mt-3">
+          <button class="btn btn-primary btn-lg btn-block" type="submit" style="margin-bottom: 70px;">进入后台管理</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block footer %}
+  <footer class="fixed-bottom text-center mb-2" style="color: #8590a6; font-size: small;">© 2018 fushall</footer>
+{% endblock footer %}
+
+
+{% block myscripts %}
+  <script>
+    let input = $('input.form-control');
+    input.focus(function () {
+      $(this).css('z-index', 2);
+    }).blur(function () {
+      $(this).css('z-index', 'auto');
+    })
+  </script>
+{% endblock %}
