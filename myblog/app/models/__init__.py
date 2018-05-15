@@ -18,3 +18,12 @@ class Mixin:
         db.session.commit()
         return self
 
+
+def drop_all(app):
+    with app.with_context():
+        db.drop_all()
+
+
+def create_all(app):
+    with app.with_context():
+        db.create_all()
