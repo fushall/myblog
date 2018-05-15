@@ -1,7 +1,10 @@
-class Development:
-    print(555)
-    FLASK_SQLALCHEMY = 666
+class Default:
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
-class Production:
-    FLASK_SQLALCHEMY = 777
+class Development(Default):
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://admin:admin@localhost:3307/myblog?charset=utf8mb4'
+
+
+class Production(Default):
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://admin:admin@localhost/myblog?charset=utf8mb4'

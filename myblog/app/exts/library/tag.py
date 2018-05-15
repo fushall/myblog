@@ -1,12 +1,12 @@
 from flask import Markup
 
 
-class Tag:
+class HtmlTag:
     def __call__(self):
         raise AttributeError('请派生后调用')
 
 
-class DivTag(Tag):
+class DivTag(HtmlTag):
     def __init__(self, content):
         self.content = content
 
@@ -14,7 +14,7 @@ class DivTag(Tag):
         return Markup(f'<div>{self.content}</div>')
 
 
-class ScriptTag(Tag):
+class ScriptTag(HtmlTag):
     def __init__(self, src):
         self.src = src
 
@@ -22,7 +22,7 @@ class ScriptTag(Tag):
         return Markup(f'<script type="text/javascript" src="{self.src}"></script>')
 
 
-class StyleTag(Tag):
+class StyleTag(HtmlTag):
     def __init__(self, href):
         self.href = href
 

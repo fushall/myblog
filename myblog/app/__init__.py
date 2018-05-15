@@ -3,7 +3,8 @@ from flask import Flask
 from app.configs import init_configs
 from app.views import register_views
 from app.models import db
-from app.libraries import LibraryManager
+from app.exts.library import LibraryManager
+
 
 
 def create_app():
@@ -18,7 +19,8 @@ def create_app():
 
     #: 各种扩展
     #: [css, js 本地/cdn 切换器]
-    LibraryManager(app)
+    from . import libraries
+    LibraryManager(app, libraries)
 
     # 注册错误页面，蓝图
     register_views(app)
