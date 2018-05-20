@@ -1,0 +1,29 @@
+{% extends 'layout/bootstrap.html' %}
+
+
+{% block title %}
+  兴小院 - {{ post.title }}
+{% endblock %}
+
+
+{% block content %}
+  <link href="{{ url_for('static', filename='pygments.css') }}" rel="stylesheet">
+  <div class="container d-flex flex-column" style="margin: 60px auto 0 auto;max-width: 1000px;">
+    {# header #}
+
+    {# content #}
+    <div class="d-flex">
+
+      {# post #}
+      <div style="min-width: 650px">
+
+        <h1><a href="#">{{ post.title }}</a></h1>
+        <div class="mb-1">发表于：{{ post.posted_at }}</div>
+        <div class="mb-3">更新于：{{ post.posted_at }}</div>
+        <div>{{ post.html|safe }}</div>
+      </div>
+    </div>
+      <footer class="mt-5 text-center mb-2" style="color: #8590a6; font-size: small;">© 2018 fushall</footer>
+  </div>
+{% endblock content %}
+

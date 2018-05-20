@@ -1,0 +1,24 @@
+{% extends 'layout/bootstrap.html' %}
+
+
+{% block title %}
+  上传文章 - 后台管理
+{% endblock %}
+
+
+{% block content %}
+  <div class="container" style="margin: 60px auto 0 auto;max-width: 450px;">
+    {{ message() }}
+    <form class="card" action="{{ url_for('admin.upload_post') }}" method="post" enctype="multipart/form-data">
+      <div class="card-body">
+        {{ form.hidden_tag() }}
+        <div class="custom-file">
+          {{ form.file(id="validatedCustomFile", class="custom-file-input") }}
+          <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+          <div class="invalid-feedback">选择markdown格式的博客</div>
+        </div>
+        <button class="btn btn-primary btn-block mt-5" type="submit">上传</button>
+      </div>
+    </form>
+  </div>
+{% endblock content %}

@@ -13,8 +13,8 @@ class UserModel(db.Model, Mixin, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Unicode(16), nullable=False, unique=True)
-    password_hash = db.Column(db.Unicode(128), nullable=False)
+    name = db.Column(db.Unicode(16), nullable=False, unique=True)  # 用户名
+    password_hash = db.Column(db.Unicode(128), nullable=False)     # 密码哈希值
 
     @property
     def password(self):
@@ -28,13 +28,23 @@ class UserModel(db.Model, Mixin, UserMixin):
         return check_password_hash(self.password_hash, password)
 
     @classmethod
-    def get_user(cls, name):
+    def get_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
+
+    @classmethod
+    def create(cls, name, password):
+        user = cls(name=name, password=password)
+        return user.save()
+
+    @classmethod
+    def get(cls, user_id):
+        user = cls.query.get(int(user_id))
+        return user
 
 
 def create_user(username, password):
     user = UserModel(name=username, password=password)
-    user.save()
+    return user.save()
 
 
 def get_user(user_id: int):

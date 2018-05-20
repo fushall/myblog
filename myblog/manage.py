@@ -1,7 +1,7 @@
 from app import create_app as __create_app
 from app.models import db, drop_all, create_all
 from app.models.user import UserModel, create_user
-
+from app.models.post import PostModel
 
 def create_app():
     app = __create_app()
@@ -14,6 +14,7 @@ def create_app():
             drop_all=drop_all,
             create_all=create_all,
             UserModel=UserModel,
+            PostModel=PostModel,
             create_user=create_user
         )
 
