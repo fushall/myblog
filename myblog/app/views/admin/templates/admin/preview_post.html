@@ -2,13 +2,13 @@
 
 
 {% block title %}
-  对外隐藏文章？ - 后台管理
+  预览文章 - 后台管理
 {% endblock %}
 
 
 {% block content %}
   <div class="container" style="width: 1000px;">
   {{ message() }}
-  <a href="{{ url_for('admin.hide_post', post_id=post.id) }}">确认对外隐藏</a>
+
   </div>
 {% endblock content %}

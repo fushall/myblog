@@ -86,7 +86,22 @@ def delete_post(post_id):
 @blueprint.route('/hide-post/<int:post_id>', methods=['POST', 'GET'])
 @login_required
 def hide_post(post_id):
-    return render_template('admin/hide_post.html')
+    post = PostModel.query.get(post_id)
+    if request.method == 'POST' and post:
+        post.hidden = True
+        post.save()
+    return render_template('admin/hide_post.html', post=post)
+
+
+@blueprint.route('/show-post/<int:post_id>', methods=['POST', 'GET'])
+@login_required
+def show_post(post_id):
+    post = PostModel.query.get(post_id)
+    if request.method == 'POST' and post:
+        post.hidden = False
+        post.save()
+        flash('已使这篇博客对外可见')
+    return redirect(url_for('admin.index'))
 
 
 @blueprint.route('/replace-post/<int:post_id>', methods=['POST', 'GET'])
