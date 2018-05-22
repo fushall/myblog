@@ -3,6 +3,7 @@ from app.models import db, drop_all, create_all
 from app.models.user import UserModel, create_user
 from app.models.post import PostModel
 
+
 def create_app():
     app = __create_app()
 

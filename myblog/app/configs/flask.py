@@ -2,7 +2,7 @@ from datetime import timedelta
 
 
 class Default:
-    SECRET_KEY = 'Welcome to my blog myblog!'
+    SECRET_KEY = 'Welcome to my blog!'
 
 
 class Development(Default):

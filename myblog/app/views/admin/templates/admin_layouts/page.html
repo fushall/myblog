@@ -1,0 +1,18 @@
+{% extends 'layouts/bootstrap.html' %}
+
+
+{% block content %}
+  <div class="container pl-2 pr-2" style="margin: 60px auto 0 auto;max-width: 1000px;">
+
+    <div>{{ message() }}</div>
+
+    {% block page %}
+    {% endblock %}
+
+  </div>
+{% endblock %}
+
+
+{% block footer %}
+  <footer class="fixed-bottom text-center mb-2" style="color: #8590a6; font-size: small;">© 2018 fushall</footer>
+{% endblock footer %}

@@ -1,4 +1,4 @@
-{% extends 'layout/bootstrap.html' %}
+{% extends 'admin_layouts/page.html' %}
 
 
 {% block title %}
@@ -6,9 +6,8 @@
 {% endblock %}
 
 
-{% block content %}
-  <div class="container" style="width: 1000px;">
-    {{ message() }}
+{% block page %}
+
     <div class="card mb-3">
       <div class="card-header">配置</div>
       <div class="card-body">
@@ -53,5 +52,5 @@
       </div>
     </div>
 
-  </div>
-{% endblock content %}
+
+{% endblock %}

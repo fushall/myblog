@@ -1,0 +1,33 @@
+{% macro dialog(title, context, buttonmethod="post") %}
+  <form class="card" method="{{ method }}">
+    <div class="card-header">{{ title }}</div>
+    <div class="card-body">
+      <p>{{ context }}</p>
+      <div class="d-flex justify-content-around">
+        <button class="btn btn-primary" type="submit" style="width: 100px;">确认</button>
+        <a class="btn btn-secondary" href="{{ url_for('admin.index') }}" style="width: 100px;">返回</a>
+      </div>
+    </div>
+  </form>
+{% endmacro %}
+
+
+{% macro preview_post(post) %}
+  <div>预览：</div>
+  <div>{{ post.html|safe }}</div>
+{% endmacro %}
+
+
+{% macro upload_post(post, form) %}
+  <form class="card" action="{{ url_for('admin.upload_post') }}" method="post" enctype="multipart/form-data">
+    <div class="card-body">
+      {{ form.hidden_tag() }}
+      <div class="custom-file">
+        {{ form.file(id="validatedCustomFile", class="custom-file-input") }}
+        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+        <div class="invalid-feedback">选择markdown格式的博客</div>
+      </div>
+      <button class="btn btn-primary btn-block mt-5" type="submit">上传</button>
+    </div>
+  </form>
+{% endmacro %}
