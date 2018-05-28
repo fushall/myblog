@@ -1,7 +1,8 @@
 from app import create_app as __create_app
-from app.models import db, drop_all, create_all
-from app.models.user import UserModel, create_user
-from app.models.post import PostModel
+from model import db, drop_all, create_all
+from model.user import UserModel, create_user
+from model.post import PostModel
+from model.tag import TagModel, TagsMapModel
 
 
 def create_app():
@@ -16,6 +17,8 @@ def create_app():
             create_all=create_all,
             UserModel=UserModel,
             PostModel=PostModel,
+            TagModel=TagModel,
+            TagsMapModel=TagsMapModel,
             create_user=create_user
         )
 

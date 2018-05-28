@@ -1,0 +1,19 @@
+{% extends 'layout/bootstrap.html' %}
+
+
+{% block header %}
+    {% include 'main/_header.html' %}
+{% endblock %}
+
+
+{% block content %}
+  <div class="container d-flex justify-content-between" style="width: 1000px;">
+    {% include 'main/_sidebar.html' %}
+    {% include 'main/_content.html' %}
+  </div>
+{% endblock %}
+
+
+{% block footer %}
+  {% include 'main/_footer.html' %}
+{% endblock %}

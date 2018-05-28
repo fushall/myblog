@@ -27,3 +27,4 @@ def drop_all(app):
 def create_all(app):
     with app.app_context():
         db.create_all()
+

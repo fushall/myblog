@@ -4,8 +4,8 @@ from markdown import markdown as to_markdown
 
 from . import blueprint
 from .forms import LoginForm, UploadPostForm
-from app.models.user import UserModel
-from app.models.post import PostModel
+from model.user import UserModel
+from model.post import PostModel
 
 
 @blueprint.route('/')

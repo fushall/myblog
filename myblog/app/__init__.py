@@ -1,12 +1,19 @@
 from flask import Flask
 from flask_login import LoginManager
 
-from app.configs import init_configs
-from app.views import register_views
-from app.models import db
-from app.models.user import get_user
-from app.exts.library import LibraryManager
-from app.exts.message import Message
+from config import init_configs
+from model import db
+from model.user import get_user
+from ext.library import LibraryManager
+from ext.message import Message
+
+
+def register_blueprints(app):
+    from app.main import blueprint as main
+    app.register_blueprint(main)
+
+    from app.admin import blueprint as admin
+    app.register_blueprint(admin)
 
 
 def create_app():
@@ -25,13 +32,13 @@ def create_app():
     login.user_loader(lambda user_id: get_user(user_id))
 
     # exts.library
-    from . import libraries
-    LibraryManager(app, libraries)
+    from . import library
+    LibraryManager(app, library)
 
     # exts.message
     Message(app)
 
-    # views and blueprints.
-    register_views(app)
+    # blueprints.
+    register_blueprints(app)
 
     return app
