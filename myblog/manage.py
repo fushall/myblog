@@ -3,7 +3,6 @@ from models import db, drop_all, create_all
 from models.user import UserModel, create_user
 from models.post import PostModel
 from models.tag import TagModel
-from models.category import CategoryModel
 
 
 def create_app():
@@ -19,7 +18,6 @@ def create_app():
             UserModel=UserModel,
             PostModel=PostModel,
             TagModel=TagModel,
-            CategoryModel=CategoryModel,
             create_user=create_user
         )
 
