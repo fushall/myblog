@@ -1,56 +1,26 @@
-{% extends 'admin_layouts/page.html' %}
+{% extends 'layout/bootstrap.html' %}
 
 
 {% block title %}
-  后台管理 - 兴小院
+  兴小院 - 后台管理
+{% endblock %}
+
+{% block header %}
+  {% include 'admin/_header.html' %}
 {% endblock %}
 
 
-{% block page %}
-
-    <div class="card mb-3">
-      <div class="card-header">配置</div>
-      <div class="card-body">
-        <div>博客名：xxx</div>
-        <div>github：xxx</div>
-        <div>xxx：xxx</div>
-        <div>zzz：xxx</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header d-flex">
-        <div>文章管理</div>
-      </div>
-      <div class="card-body">
-        {# 统计 #}
-        <div class="d-flex">
-          <div>全部（0）</div>
-          <div>草稿（0）</div>
-          <div>已隐藏（0）</div>
-        </div>
-        {# 操作 #}
-        <div><a href="{{ url_for('admin.upload_post') }}">上传</a></div>
-        <ul class="list-group">
-          {% for post in posts %}
-            <li class="list-group-item d-flex justify-content-between">
-              <div>
-                <a href="{{ url_for('main.post', post_id=post.id) }}" target="_blank">{{ post.title }}</a>
-              </div>
-              <div>
-                {% if post.hidden %}
-                  <a href="{{ url_for('admin.show_post', post_id=post.id) }}">对外可见</a>
-                {% else %}
-                  <a href="{{ url_for('admin.hide_post', post_id=post.id) }}">对外隐藏</a>
-                {% endif %}
-                <a href="{{ url_for('admin.replace_post', post_id=post.id) }}">替换</a>
-                <a href="{{ url_for('admin.delete_post', post_id=post.id) }}">删除</a>
-              </div>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
+{% block content %}
+  <div>
+  {{ message() }}
+  </div>
+  <div class="container d-flex justify-content-between" style="width: 1000px;">
+    {% include 'admin/_sidebar.html' %}
+    {% include 'admin/_content.html' %}
+  </div>
+{% endblock %}
 
 
+{% block footer %}
+  {% include 'admin/_footer.html' %}
 {% endblock %}

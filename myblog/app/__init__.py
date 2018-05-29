@@ -1,11 +1,11 @@
 from flask import Flask
 from flask_login import LoginManager
 
-from config import init_configs
-from model import db
-from model.user import get_user
-from ext.library import LibraryManager
-from ext.message import Message
+from configs import init_configs
+from models import db
+from models.user import get_user
+from exts.library import LibraryManager
+from exts.message import Message
 
 
 def register_blueprints(app):

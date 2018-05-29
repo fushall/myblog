@@ -11,18 +11,21 @@
   <div class="card mt-3">
     <div class="card-header">标签</div>
     <div class="card-body  flex-wrap">
-      <button class="btn btn-info btn-sm mb-1">
-        Noti <span class="badge badge-light">4</span>
-      </button>
+      {% for tag in tags %}
+        <button class="btn btn-info btn-sm mb-1">
+          {{ tag.name }}<span class="badge badge-light">{{ 0 }}</span>
+        </button>
+      {% endfor %}
 
-      <button class="btn btn-info btn-sm">
-        Notifications <span class="badge badge-light">4</span>
-      </button>
+    </div>
+  </div>
 
-      <button class="btn btn-info btn-sm">
-        Notifications <span class="badge badge-light">4</span>
-      </button>
-
+  <div class="card mt-3">
+    <div class="card-header">分类</div>
+    <div class="card-body">
+      {% for category in categories %}
+        <a href="#">{{ category.name }}</a>
+      {% endfor %}
     </div>
   </div>
 </div>

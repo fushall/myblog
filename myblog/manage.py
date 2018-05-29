@@ -1,12 +1,13 @@
-from app import create_app as __create_app
-from model import db, drop_all, create_all
-from model.user import UserModel, create_user
-from model.post import PostModel
-from model.tag import TagModel, TagsMapModel
+from app import create_app as _create_app
+from models import db, drop_all, create_all
+from models.user import UserModel, create_user
+from models.post import PostModel
+from models.tag import TagModel
+from models.category import CategoryModel
 
 
 def create_app():
-    app = __create_app()
+    app = _create_app()
 
     @app.shell_context_processor
     def make_shell_context():
@@ -18,7 +19,7 @@ def create_app():
             UserModel=UserModel,
             PostModel=PostModel,
             TagModel=TagModel,
-            TagsMapModel=TagsMapModel,
+            CategoryModel=CategoryModel,
             create_user=create_user
         )
 

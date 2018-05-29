@@ -1,11 +1,11 @@
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required
-from markdown import markdown as to_markdown
 
 from . import blueprint
+from .utlis import parse_post, markdown2html
 from .forms import LoginForm, UploadPostForm
-from model.user import UserModel
-from model.post import PostModel
+from models.user import UserModel
+from models.post import PostModel
 
 
 @blueprint.route('/')
@@ -18,7 +18,6 @@ def index():
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    print(form.data)
     if form.validate_on_submit():
         user = UserModel.query.filter_by(name=form.username.data).first()
         if user and user.verify_password(form.password.data):
@@ -42,29 +41,16 @@ def logout():
 def upload_post():
     form = UploadPostForm()
     if form.file.data:
-        file = request.files.get(form.file.name)
+        markdown_file = request.files.get(form.file.name)
         try:
-            tags, title, summary = [None] * 3
-            markdown = []
-            for line in file.stream.readlines():
-                text = line.decode()
+            title, tags, summary, maintext = parse_post(markdown_file.stream)
 
-                if tags and title and summary:
-                    markdown.append(text)
-
-                if text.startswith('tags:'):
-                    tags = text[len('tags:'):].strip()
-                elif text.startswith('title:'):
-                    title = text[len('title:'):].strip()
-                elif text.startswith('summary:'):
-                    summary = text[len('summary:'):].strip()
-
-            markdown = ''.join(markdown)
-            post = PostModel()
-            post.title = title
-            post.summary = summary
-            post.markdown = markdown
-            post.html = to_markdown(markdown, extensions=['fenced_code', 'codehilite(css_class=highlight)'])
+            post = PostModel(
+                title=title,
+                summary_html=markdown2html(summary),
+                maintext_html=markdown2html(maintext),
+                raw_markdown=maintext
+            )
             post.save()
 
             flash('上传成功！')

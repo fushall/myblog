@@ -9,7 +9,7 @@
               <h5>{{ post.title }}</h5>
             </a>
             <div class="mb-3">更新于：{{ post.updated_at }}</div>
-            <p style="color: gray;">{{ post.summary }}</p>
+            <p style="color: gray;">{{ post.summary_html|safe }}</p>
           </li>
         {% endfor %}
       </ul>

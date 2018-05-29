@@ -7,10 +7,10 @@
 
 
 {% block content %}
-  <div class="containe pl-2 pr-2" style="margin: 60px auto 0 auto;max-width: 375px;">
+  <div class="containe pl-2 pr-2" style="margin: 60px auto 0 auto;max-width: 430px;">
     {{ message() }}
-    <div class="card p-4">
-      <h5 class="text-center mt-4 mb-4">管理你的博客吗？</h5>
+    <div class="card p-4" style="margin: 60px auto;">
+      <h4 class="text-center mt-4 mb-4">管理你的博客吗？</h4>
       <form class="mt-4" action="{{ url_for('admin.login') }}" method="post">
         <div class="form-group">
           {{ form.hidden_tag() }}
@@ -22,7 +22,7 @@
           {{ form.remember.label(class='form-check-label') }}
         </div>
         <div class="form-group mt-3">
-          <button class="btn btn-primary btn-lg btn-block" type="submit" style="margin-bottom: 70px;">进入后台管理</button>
+          <button class="btn btn-primary btn-block" type="submit" style="margin-bottom: 30px;">进入后台</button>
         </div>
       </form>
     </div>

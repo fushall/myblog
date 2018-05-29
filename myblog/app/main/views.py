@@ -2,14 +2,17 @@ from . import blueprint
 
 from flask import render_template, g
 
-from model.post import PostModel
+from models.post import PostModel
+from models.tag import TagModel
+from models.category import CategoryModel
 
 
 @blueprint.route('/')
 def index():
     posts = PostModel.query.order_by(PostModel.posted_at.desc()).all()
-    print(posts)
-    return render_template('main/index.html', posts=posts)
+    tags = TagModel.query.all()
+    categories = CategoryModel.query.all()
+    return render_template('main/index.html', posts=posts, tags=tags, categories=categories)
 
 
 @blueprint.route('/post/<int:post_id>')

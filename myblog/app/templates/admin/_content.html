@@ -1,0 +1,32 @@
+<div class="ml-3 w-100">
+  <div class="card">
+      <div class="card-body">
+        {# 统计 #}
+        <div class="d-flex">
+          <div>全部（0）</div>
+          <div>草稿（0）</div>
+          <div>已隐藏（0）</div>
+        </div>
+        {# 操作 #}
+        <div><a href="{{ url_for('admin.upload_post') }}">上传</a></div>
+        <ul class="list-group">
+          {% for post in posts %}
+            <li class="list-group-item d-flex justify-content-between">
+              <div>
+                <a href="{{ url_for('main.post', post_id=post.id) }}" target="_blank">{{ post.title }}</a>
+              </div>
+              <div>
+                {% if post.hidden %}
+                  <a href="{{ url_for('admin.show_post', post_id=post.id) }}">对外可见</a>
+                {% else %}
+                  <a href="{{ url_for('admin.hide_post', post_id=post.id) }}">对外隐藏</a>
+                {% endif %}
+                <a href="{{ url_for('admin.replace_post', post_id=post.id) }}">替换</a>
+                <a href="{{ url_for('admin.delete_post', post_id=post.id) }}">删除</a>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+  </div>
+</div>
