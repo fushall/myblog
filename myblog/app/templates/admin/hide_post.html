@@ -1,6 +1,6 @@
-{% extends 'admin_layouts/dialog.html' %}
+{% extends 'admin/layout/dialog.html' %}
 
-{% import 'admin_macros/forms.html' as forms %}
+{% import 'admin/macros/forms.html' as forms %}
 
 {% block title %}
   对外隐藏文章？ - 后台管理
@@ -8,11 +8,41 @@
 
 
 {% block dialog %}
+  <button id="btn">ssss</button>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button>
 
   <div class="mb-3">
-    {{ forms.dialog('确认执行此操作吗？', '一旦执行此操作，主页将不再显示该条博客') }}
+    <div id="exampleModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">确认隐藏吗？</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>一旦隐藏，主页将隐藏该文章。</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div>{{ forms.preview_post(post) }}</div>
 
+{% endblock %}
+
+{% block myscripts %}
+  <script>
+    $('#btn').click(function () {
+
+    })
+  </script>
 {% endblock %}

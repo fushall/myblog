@@ -11,3 +11,7 @@ class LoginForm(FlaskForm):
 
 class UploadPostForm(FlaskForm):
     file = FileField('markdown文件', validators=[DataRequired()])
+
+
+class PreviewPostForm(FlaskForm):
+    text = StringField('确认？', validators=[DataRequired()])

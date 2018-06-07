@@ -17,8 +17,11 @@
 
 {% block content %}
   <div class="container d-flex justify-content-between" style="width: 1000px;">
-    {% include 'admin/_sidebar.html' %}
-    {% include 'admin/_content.html' %}
+    {% block sidebar %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
   </div>
 {% endblock %}
 

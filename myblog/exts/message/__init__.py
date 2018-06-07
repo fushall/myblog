@@ -3,7 +3,7 @@ from markupsafe import Markup
 
 
 _TEMPLATE = '''
-<div class="alert alert-{category} alert-dismissible fade show" role="alert">
+<div class="alert alert-{category} alert-dismissible fade show w-100" role="alert">
     {message}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>

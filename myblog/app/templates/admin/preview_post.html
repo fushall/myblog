@@ -1,5 +1,4 @@
-{% extends 'admin_layouts/dialog.html' %}
-
+{% extends 'admin/layout/dialog.html' %}
 
 {% block title %}
   预览文章 - 后台管理
@@ -8,5 +7,20 @@
 
 {% block dialog %}
 
-
+  <div class="mb-3">
+    <form class="card" action="{{ url_for('admin.preview_post') }}" method="post">
+      <div class="card-body">
+        {{ form.hidden_tag() }}
+        <div class="input-group mb-3">
+          {{ form.text(class='form-control', placeholder='输入“确认上传”后点击提交') }}
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">提交</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div>
+    {{ current_app.temp_post.maintext_html|safe }}
+  </div>
 {% endblock %}

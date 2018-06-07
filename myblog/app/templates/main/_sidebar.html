@@ -13,7 +13,7 @@
     <div class="card-body  flex-wrap">
       {% for tag in tags %}
         <button class="btn btn-info btn-sm mb-1">
-          {{ tag.name }}<span class="badge badge-light">{{ 0 }}</span>
+          {{ tag.name }}<span class="badge badge-light ml-1">{{ tag.posts.__len__() }}</span>
         </button>
       {% endfor %}
 
