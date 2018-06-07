@@ -134,4 +134,4 @@ def preview_post():
             flash('上传成功！')
             return redirect(url_for('admin.index'))
 
-    return render_template('admin/preview_post.html', form=form)
+    return render_template('admin/preview_post.html', form=form, temp_post=temp_post)
