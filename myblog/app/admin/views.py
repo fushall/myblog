@@ -73,6 +73,7 @@ def delete_post(post_id):
     if form.validate_on_submit() and form.text.data == '确认删除':
         if post:
             post.delete()
+            post.commit()
         else:
             flash("ID不对，删不了")
         return redirect(url_for('admin.index'))
