@@ -3,13 +3,20 @@ from flask import render_template, g, request
 from . import blueprint
 from models.post import PostModel
 from models.tag import TagModel
+from models.user import UserModel
+
+
+@blueprint.route('/test')
+def test():
+    return render_template('main/test.html')
 
 
 @blueprint.route('/')
 def index():
+    user = UserModel.query.get(1)
     _posts = PostModel.query.order_by(PostModel.posted_at.desc()).all()
     tags = TagModel.query.all()
-    return render_template('main/index.html', posts=_posts, tags=tags)
+    return render_template('main/index.html', posts=_posts, tags=tags, user=user)
 
 
 @blueprint.route('/post/<int:post_id>')

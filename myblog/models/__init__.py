@@ -14,6 +14,10 @@ class Mixin:
         db.session.add(self)
         return self
 
+    def delete(self):
+        db.session.delete(self)
+        return self
+
     def commit(self):
         db.session.commit()
         return self

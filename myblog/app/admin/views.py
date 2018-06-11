@@ -2,11 +2,11 @@ from flask import render_template, request, redirect, url_for, flash, session, c
 from flask_login import login_user, logout_user, login_required
 
 from . import blueprint
-from .utlis import parse_post, markdown2html
-from .forms import LoginForm, UploadPostForm, PreviewPostForm
+from utils import parse_post, markdown2html
+from .forms import LoginForm, UploadPostForm, PreviewPostForm, DeletePostForm, ReplacePostForm, UserInfoForm
 from models.user import UserModel
 from models.post import PostModel
-from models.tag import TagModel, TagMap, tags_diff
+from models.tag import TagModel, tags_diff
 
 
 @blueprint.route('/')
@@ -68,34 +68,15 @@ def upload_post():
 @blueprint.route('/delete-post/<int:post_id>', methods=['POST', 'GET'])
 @login_required
 def delete_post(post_id):
-    return render_template('admin/delete_post.html')
-
-
-@blueprint.route('/hide-post/<int:post_id>', methods=['POST', 'GET'])
-@login_required
-def hide_post(post_id):
-    post = PostModel.query.get(post_id)
-    if request.method == 'POST' and post:
-        post.hidden = True
-        post.save()
-    return render_template('admin/hide_post.html', post=post)
-
-
-@blueprint.route('/show-post/<int:post_id>', methods=['POST', 'GET'])
-@login_required
-def show_post(post_id):
-    post = PostModel.query.get(post_id)
-    if request.method == 'POST' and post:
-        post.hidden = False
-        post.save()
-        flash('已使这篇博客对外可见')
-    return redirect(url_for('admin.index'))
-
-
-@blueprint.route('/replace-post/<int:post_id>', methods=['POST', 'GET'])
-@login_required
-def replace_post(post_id):
-    return render_template('admin/replace_post.html')
+    form = DeletePostForm()
+    post = PostModel.query.filter_by(id=post_id).first()
+    if form.validate_on_submit() and form.text.data == '确认删除':
+        if post:
+            post.delete()
+        else:
+            flash("ID不对，删不了")
+        return redirect(url_for('admin.index'))
+    return render_template('admin/delete_post.html', form=form, post=post)
 
 
 @blueprint.route('/preview-post', methods=['POST', 'GET'])
@@ -135,3 +116,21 @@ def preview_post():
             return redirect(url_for('admin.index'))
 
     return render_template('admin/preview_post.html', form=form, temp_post=temp_post)
+
+
+@blueprint.route('/userinfo', methods=['POST', 'GET'])
+@login_required
+def userinfo():
+    form = UserInfoForm()
+    user = UserModel.query.get(1)
+
+    if form.validate_on_submit() and user:
+        _userinfo = form.userinfo.data
+
+        user.raw_markdown = _userinfo
+        user.info_html = markdown2html(_userinfo)
+        user.save()
+        return redirect(url_for('admin.userinfo'))
+    else:
+        form.userinfo.data = user.raw_markdown
+    return render_template('admin/userinfo.html', form=form, user=user)

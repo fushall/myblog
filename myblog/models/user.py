@@ -8,6 +8,8 @@ from . import db, Mixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+from utils import markdown2html
+
 
 class UserModel(db.Model, Mixin, UserMixin):
     __tablename__ = 'users'
@@ -15,6 +17,8 @@ class UserModel(db.Model, Mixin, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(16), nullable=False, unique=True)  # 用户名
     password_hash = db.Column(db.Unicode(128), nullable=False)     # 密码哈希值
+    info_html = db.Column(db.UnicodeText)                          # 主页个人信息栏
+    raw_markdown = db.Column(db.UnicodeText)                       # 原生markdown
 
     @property
     def password(self):
@@ -32,19 +36,19 @@ class UserModel(db.Model, Mixin, UserMixin):
         return cls.query.filter_by(name=name).first()
 
     @classmethod
-    def create(cls, name, password):
-        user = cls(name=name, password=password)
+    def create(cls, name, password, markdown="他什么都没写  "):
+        user = cls(
+            name=name,
+            password=password,
+            info_html=markdown2html(markdown),
+            raw_markdown=markdown
+        )
         return user.save()
 
     @classmethod
     def get(cls, user_id):
         user = cls.query.get(int(user_id))
         return user
-
-
-def create_user(username, password):
-    user = UserModel(name=username, password=password)
-    return user.save()
 
 
 def get_user(user_id: int):

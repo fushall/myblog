@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, BooleanField, FileField
+from wtforms.fields import StringField, PasswordField, BooleanField, FileField, TextAreaField
 from wtforms.validators import DataRequired
 
 
@@ -13,5 +13,18 @@ class UploadPostForm(FlaskForm):
     file = FileField('markdown文件', validators=[DataRequired()])
 
 
+class ReplacePostForm(FlaskForm):
+    file = FileField('markdown文件', validators=[DataRequired()])
+
+
 class PreviewPostForm(FlaskForm):
     text = StringField('确认？', validators=[DataRequired()])
+
+
+class DeletePostForm(FlaskForm):
+    text = StringField('确认？', validators=[DataRequired()])
+
+
+class UserInfoForm(FlaskForm):
+
+    userinfo = TextAreaField('个人信息', validators=[DataRequired()])
