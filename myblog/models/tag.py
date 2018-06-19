@@ -22,3 +22,6 @@ def delete_tag_nopost():
         if len(tag.posts) == 0:
             tag.delete().commit()
 
+
+def get_tagnames():
+    return [tag.name for tag in TagModel.query.all()]

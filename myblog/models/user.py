@@ -54,3 +54,17 @@ class UserModel(db.Model, Mixin, UserMixin):
 def get_user(user_id: int):
     user = UserModel.query.get(int(user_id))
     return user
+
+
+def get_user_byname(user_name):
+    return UserModel.query.filter_by(name=user_name).first()
+
+
+def create_user(name, password, markdown="他什么都没写  "):
+    user = UserModel(
+            name=name,
+            password=password,
+            info_html=markdown2html(markdown),
+            raw_markdown=markdown
+        )
+    return user.save()
