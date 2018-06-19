@@ -14,7 +14,7 @@ class UploadPostForm(FlaskForm):
 
 
 class ReplacePostForm(FlaskForm):
-    file = FileField('markdown文件', validators=[DataRequired()])
+    text = StringField('确认？', validators=[DataRequired()])
 
 
 class PreviewPostForm(FlaskForm):

@@ -10,4 +10,4 @@ class Development(Default):
 
 
 class Production(Default):
-    PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)
+    PERMANENT_SESSION_LIFETIME = timedelta(minutes=10)

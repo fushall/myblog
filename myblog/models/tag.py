@@ -17,21 +17,8 @@ class TagModel(db.Model, Mixin):
     posts = db.relationship('PostModel', secondary=TagMap, backref='tags')
 
 
-def get_tagnames():
-    return [tag.name for tag in TagModel.query.all()]
+def delete_tag_nopost():
+    for tag in TagModel.query.all():
+        if len(tag.posts) == 0:
+            tag.delete().commit()
 
-
-def tags_diff(tagnames):
-    '''
-    标签差异分析
-    '''
-    new_tag = []
-    repeated_tag = []
-
-    _tagnames = get_tagnames()
-    for name in tagnames:
-        if name in _tagnames:
-            repeated_tag.append(name)
-        else:
-            new_tag.append(name)
-    return new_tag, repeated_tag

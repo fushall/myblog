@@ -41,7 +41,10 @@
             {% for post in posts %}
               <li class="list-group-item d-flex justify-content-between">
                 <a href="{{ url_for('main.post', post_id=post.id) }}" target="_blank">{{ post.title }}</a>
-                <a href="{{ url_for('admin.delete_post', post_id=post.id) }}">删除</a>
+                <div>
+                  <a href="{{ url_for('admin.replace_post', post_id=post.id) }}">替换</a>
+                  <a href="{{ url_for('admin.delete_post', post_id=post.id) }}">删除</a>
+                </div>
               </li>
             {% endfor %}
           </ul>

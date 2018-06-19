@@ -6,11 +6,12 @@
 
 
 {% block dialog %}
-  <div>
-    <p>预览：</p>
+  <h5 class="text-center"><strong>预览</strong></h5>
+  <div style="border: 1px red dashed; ">
     {{ user.info_html | safe}}
   </div>
-  <form class="card" action="{{ url_for('admin.userinfo') }}" method="post">
+
+  <form class="card mt-3" action="{{ url_for('admin.userinfo') }}" method="post">
     <div class="card-body">
       {{ form.hidden_tag() }}
       {{ form.userinfo(class="form-control", rows="8") }}
