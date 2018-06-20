@@ -49,3 +49,9 @@ def create_user(name, password, markdown="他什么都没写  "):
             raw_markdown=markdown
         )
     return user.save()
+
+
+def set_userinfo(user, md_info):
+    user.raw_markdown = md_info
+    user.info_html = markdown2html(md_info)
+    user.commit()

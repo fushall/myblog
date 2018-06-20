@@ -10,6 +10,7 @@
   <form class="card" action="{{ url_for('admin.upload_post') }}" method="post" enctype="multipart/form-data">
     <div class="card-body">
       {{ form.hidden_tag() }}
+      <input name="post_id" type="hidden" value="{{ post_id }}">
       <div class="custom-file">
         {{ form.file(id="validatedCustomFile", class="custom-file-input") }}
         <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>

@@ -3,7 +3,7 @@ from datetime import datetime
 
 from utils import markdown2html
 from . import db, Mixin
-from .tag import TagModel, create_tag, get_tag_byname, tags_diff
+from .tag import TagModel, create_tag, get_tag_byname, tags_diff, delete_tag_nopost
 
 
 class PostModel(db.Model, Mixin):
@@ -26,6 +26,7 @@ def parse_markdown_post(markdown_file):
     over_summary = False
     for line in markdown_file.readlines():
         line = line.decode()
+        print(len(line), line)
         if tags and title:
             maintext.append(line)
             if over_summary is not True:
@@ -65,26 +66,27 @@ def get_post(post_id: int):
     return PostModel.query.get(post_id)
 
 
-def get_posts():
-    return PostModel.query.all()
+def get_posts(desc=False):
+    if desc:
+        return PostModel.query.all()
+    else:
+        return PostModel.query.order_by(PostModel.posted_at.desc()).all()
 
 
-def replace_post(src_post_id, dist_post_id):
-    src_post = get_post(src_post_id)
-    dist_post = get_post(dist_post_id)
-
+def replace_post(src_post, dist_post):
     dist_post.title = src_post.title
     dist_post.summary_html = src_post.summary_html
     dist_post.maintext_html = src_post.maintext_html
     dist_post.raw_markdown = src_post.raw_markdown
+    dist_post.tags = src_post.tags
     dist_post.updated_at = datetime.now()
 
-    db.session.delete(src_post)
-    db.session.commit()
+    delete_post(src_post)
 
 
-def delete_post(post_id):
-    post = get_post(post_id)
-    db.session.delete(post)
-    db.session.commit()
+def delete_post(post):
+    post.delete()
+    post.commit()
+    delete_tag_nopost()
+
 

@@ -8,7 +8,8 @@
 {% block dialog %}
 
   <div class="mb-3">
-    <form class="card" action="{{ url_for('admin.replace_post', post_id=post.id) }}" method="post">
+    <form class="card" action="{{ url_for('admin.replace_post', src_post_id=src_post.id, dist_post_id=dist_post.id) }}"
+          method="post">
       <div class="card-body">
         {{ form.hidden_tag() }}
         <div class="input-group mb-3">
@@ -20,7 +21,14 @@
       </div>
     </form>
   </div>
-  <div>
-    {{ post.maintext_html|safe }}
+  <div class="d-flex">
+    <p>替换前：</p>
+    <div class="w-50">
+      {{ dist_post.maintext_html|safe }}
+    </div>
+    <p>替换后：</p>
+    <div class="w-50">
+      {{ src_post.maintext_html|safe }}
+    </div>
   </div>
 {% endblock %}

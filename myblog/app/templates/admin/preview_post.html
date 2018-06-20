@@ -8,7 +8,7 @@
 {% block dialog %}
 
   <div class="mb-3">
-    <form class="card" action="{{ url_for('admin.preview_post') }}" method="post">
+    <form class="card" action="{{ url_for('admin.preview_post', temp_post_id=temp_post.id) }}" method="post">
       <div class="card-body">
         {{ form.hidden_tag() }}
         <div class="input-group mb-3">
