@@ -1,0 +1,52 @@
+{% extends 'layout/bootstrap.html' %}
+
+
+{% block title %}
+  个人简历
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="container d-flex flex-column" style="margin: 30px auto 0 auto;max-width: 1000px;">
+    {# header #}
+
+    {# content #}
+    <div class="d-flex">
+
+      {# post #}
+      <div style="min-width: 650px">
+
+        <h1>{{ post.title }}</h1>
+        <div class="mb-3">更新于：{{ post.posted_at }}</div>
+        <div>{{ post.maintext_html|safe }}</div>
+
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block myscripts %}
+  <script>
+    $('table').attr('class', 'table table-bordered');
+    console.log($('table'));
+  </script>
+{% endblock %}
+
+{% block mystyles %}
+  <style>
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 500;
+    }
+
+    h2 {
+      margin: 25px 0 20px;
+      font-size: 26px;
+    }
+
+    ul, ol {
+      padding: 0;
+      margin: 0 0 10px 25px;
+    }
+  </style>
+{% endblock %}

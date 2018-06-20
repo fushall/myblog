@@ -1,7 +1,7 @@
 from flask import render_template, g, request
 
 from . import blueprint
-from models.post import PostModel, get_post, get_posts
+from models.post import get_post, get_post_bytitle, get_posts
 from models.tag import TagModel, get_tag_byname
 from models.user import UserModel
 
@@ -34,3 +34,8 @@ def posts():
     else:
         _posts = get_posts()
     return render_template('main/posts.html', tag_name=tag_name, posts=_posts)
+
+
+@blueprint.route('/resume')
+def resume():
+    return render_template('main/resume.html', post=get_post_bytitle('个人简历'))

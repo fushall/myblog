@@ -5,7 +5,7 @@ from . import blueprint
 from utils import markdown2html
 from .forms import LoginForm, UploadPostForm, PreviewPostForm, DeletePostForm, ReplacePostForm, UserInfoForm
 from models.user import get_user_byname, get_user, set_userinfo
-from models.post import create_post, get_post, get_posts, replace_post as _replace_post
+from models.post import create_post, get_post, get_posts, replace_post as _replace_post, delete_post as _delete_post
 from models.tag import TagModel
 
 
@@ -77,7 +77,7 @@ def delete_post(post_id):
     post = get_post(post_id)
     if form.validate_on_submit() and form.text.data == '确认删除':
         if post:
-            delete_post(post)
+            _delete_post(post)
         else:
             flash("ID不对，删不了")
         return redirect(url_for('admin.index'))

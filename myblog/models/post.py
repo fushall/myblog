@@ -66,6 +66,10 @@ def get_post(post_id: int):
     return PostModel.query.get(post_id)
 
 
+def get_post_bytitle(post_title):
+    return PostModel.query.filter_by(title=post_title).first()
+
+
 def get_posts(desc=False):
     if desc:
         return PostModel.query.all()
