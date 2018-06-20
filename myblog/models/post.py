@@ -26,7 +26,6 @@ def parse_markdown_post(markdown_file):
     over_summary = False
     for line in markdown_file.readlines():
         line = line.decode()
-        print(len(line), line)
         if tags and title:
             maintext.append(line)
             if over_summary is not True:
