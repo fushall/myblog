@@ -31,25 +31,6 @@ class UserModel(db.Model, Mixin, UserMixin):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    @classmethod
-    def get_by_name(cls, name):
-        return cls.query.filter_by(name=name).first()
-
-    @classmethod
-    def create(cls, name, password, markdown="他什么都没写  "):
-        user = cls(
-            name=name,
-            password=password,
-            info_html=markdown2html(markdown),
-            raw_markdown=markdown
-        )
-        return user.save()
-
-    @classmethod
-    def get(cls, user_id):
-        user = cls.query.get(int(user_id))
-        return user
-
 
 def get_user(user_id: int):
     user = UserModel.query.get(int(user_id))

@@ -2,26 +2,24 @@ from flask import render_template, request, redirect, url_for, flash, session, c
 from flask_login import login_user, logout_user, login_required
 
 from . import blueprint
-from .utils import parse_post, tags_diff, make_post_dict
 from utils import markdown2html
 from .forms import LoginForm, UploadPostForm, PreviewPostForm, DeletePostForm, ReplacePostForm, UserInfoForm
-from models.user import UserModel
-from models.post import PostModel
+from models.user import get_user_byname
+from models.post import create_post, get_posts
 from models.tag import TagModel
 
 
 @blueprint.route('/')
 @login_required
 def index():
-    posts = PostModel.query.all()
-    return render_template('admin/index.html', posts=posts)
+    return render_template('admin/index.html', posts=get_posts())
 
 
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = UserModel.query.filter_by(name=form.username.data).first()
+        user = get_user_byname(form.username.data)
         if user and user.verify_password(form.password.data):
             login_user(user, remember=form.remember.data)
         else:
@@ -44,11 +42,8 @@ def upload_post():
     if form.file.data:
         markdown_file = request.files.get(form.file.name)
         try:
-            title, tags, md_summary, md_maintext = parse_post(markdown_file)
-            new_tags, repeated_tags = tags_diff(tags)
-            current_app.temp_post = make_post_dict(
-                new_tags, repeated_tags, title, md_summary, md_maintext
-            )
+            temppost = create_post(markdown_file.stream)
+
             return redirect(url_for('admin.preview_post'))
         except UnicodeDecodeError:
             flash('要上传的博客仅支持utf8编码的md文件')

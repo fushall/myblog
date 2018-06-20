@@ -5,6 +5,14 @@ from models.post import PostModel
 from models.tag import TagModel
 
 
+def create_db(app):
+    create_all(app)
+
+
+def drop_db(app):
+    drop_all(app)
+
+
 def create_app():
     app = _create_app()
 
@@ -13,8 +21,8 @@ def create_app():
         return dict(
             app=app,
             db=db,
-            drop_all=drop_all,
-            create_all=create_all,
+            create_db=create_db,
+            drop_db=drop_db,
             UserModel=UserModel,
             PostModel=PostModel,
             TagModel=TagModel
