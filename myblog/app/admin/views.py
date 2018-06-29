@@ -93,12 +93,14 @@ def preview_post(temp_post_id):
         return redirect(url_for('admin.index'))
 
     form = PreviewPostForm()
-    if form.validate_on_submit() and form.text.data == '确认上传':
-
-        temp_post.temperory = False
-        temp_post.commit()
-
-        flash('上传成功！')
+    if form.validate_on_submit():
+        if form.text.data == '确认上传':
+            temp_post.temperory = False
+            temp_post.commit()
+            flash('上传成功！')
+        elif form.text.data == '删除':
+            temp_post.delete().commit()
+            flash('临时文件已删除。')
         return redirect(url_for('admin.index'))
 
     return render_template('admin/preview_post.html', form=form, temp_post=temp_post)
