@@ -71,9 +71,9 @@ def get_post_bytitle(post_title):
 
 def get_posts(desc=False):
     if desc:
-        return PostModel.query.all()
-    else:
         return PostModel.query.order_by(PostModel.posted_at.desc()).all()
+    else:
+        return PostModel.query.all()
 
 
 def replace_post(src_post, dist_post):
