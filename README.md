@@ -1,18 +1,23 @@
 # myblog
+这是一个由Flask框架写的极简个人博客，新手友好，代码中的每一个变量名和方法，
+都经过了上百次揣摩，非常适合刚入门的新手朋友，可以直接读代码，也可以改一改，
+部署到自己的VPS上。预览地址如下：![blog.nmxxy.cn](http://blog.nmxxy.cn)
 
 
 
+### 部署环境
+Python3.6.5 + Flask 1.0.2 + Centos7 + MariaDB  
 
-##### 一键安装myblog所需要的各种库
+
+### 一键安装myblog所需要的各种库
 ```shell
 pip install -r requirements.txt
 ```
 
-##### 搭建环境
-Python3.6.5 + Flask 1.0.2 + Centos7 + MariaDB  
 
 
-##### 配置文件的修改
+
+### 配置文件的修改
 
 `myblog/configs/`目录下的除了`__init__.py`，剩下所有的.py文件都是配置文件。
 “configs”是一个python包（package），`__init__`.py的`register_configs`方法，
