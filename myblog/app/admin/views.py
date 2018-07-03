@@ -95,7 +95,7 @@ def preview_post(temp_post_id):
     form = PreviewPostForm()
     if form.validate_on_submit():
         if form.text.data == '确认上传':
-            temp_post.temperory = False
+            temp_post.temporary = False
             temp_post.commit()
             flash('上传成功！')
         elif form.text.data == '删除':

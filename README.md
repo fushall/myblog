@@ -44,5 +44,4 @@ def register_configs(app):
                 config = config_module.Production
             app.config.from_object(config)
 
-			
 ```
