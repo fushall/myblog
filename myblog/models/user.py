@@ -55,3 +55,9 @@ def set_userinfo(user, md_info):
     user.raw_markdown = md_info
     user.info_html = markdown2html(md_info)
     user.commit()
+
+class UserInfo:
+    id = None
+    user_id = None
+    info_type = ['text', 'markdown', 'html']
+    info_txt = 'xxxxxx'
