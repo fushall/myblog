@@ -1,10 +1,18 @@
 CREATE TABLE IF NOT EXISTS BlogUser (
 	id INTEGER PRIMARY KEY,
-	passport TEXT,
+	username TEXT,
 	password TEXT,
+	nickname TEXT,
 	created_at DATE,
 	user_type TEXT
 );
+
+CREATE TABLE IF NOT EXISTS UserInfo(
+  id INTEGER PRIMARY KEY,
+  user_id INTEGER,
+  nickname TEXT
+);
+
 
 CREATE TABLE IF NOT EXISTS UserArticle(
 	id INTEGER PRIMARY KEY,
@@ -12,11 +20,11 @@ CREATE TABLE IF NOT EXISTS UserArticle(
 	article_id INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS BlogArticle(
+CREATE TABLE IF NOT EXISTS Article(
 	id INTEGER PRIMARY KEY,
 	title TEXT,
 	article_type TEXT,
-	state SMALLINT,  -- 1: shown, 0: hidden, 2: deleted, 3: locked
+	article_state SMALLINT,  -- 1: shown, 0: hidden, 2: deleted, 3: locked
 	content TEXT,
 	content_type TEXT,  -- 0: html, 1: markdown
 	category_id INTEGER,
