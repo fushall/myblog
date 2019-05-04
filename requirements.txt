@@ -1,6 +1,5 @@
 flask
-flask-login
 flask-sqlalchemy
-flask-wtf
 
-markdown
+psycopg2
+bs4

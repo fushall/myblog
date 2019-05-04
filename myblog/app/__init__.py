@@ -1,19 +1,20 @@
+import settings
 from flask import Flask
 
-from configs import register_configs
-from .ext import register_exts
-from .blueprint import register_blueprints
-from .hook import register_hooks
-from .error import register_errors
+from models import register_models
+from .views import register_views
 
 
 def create_app():
     app = Flask(__name__)
 
-    register_configs(app)
+    # load config from settings.py
+    app.config.from_object(settings)
 
-    register_exts(app)
-    register_blueprints(app)
-    register_hooks(app)
+    # register views and blueprints
+    register_views(app)
+
+    # register flask-sqlalchemy object
+    register_models(app)
 
     return app

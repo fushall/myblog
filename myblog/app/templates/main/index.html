@@ -1,65 +1,35 @@
-{% extends 'layout/bootstrap.html' %}
+{% extends 'base/default.html' %}
 
-
-{% block title %}
-  blog - 兴小院
-{% endblock %}
 
 {% block header %}
-  {% include 'main/_header.html' %}
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand mb-0 h2" style="line-height: 1.1;" href="/">fushall's blog<br>浮砂的博客</a>
+    </nav>
+{% endblock %}
+
+
+{% block styles %}
+    <style>
+        .link {
+            color: #1d2124;
+        }
+    </style>
 {% endblock %}
 
 
 {% block content %}
-  <div class="container d-flex justify-content-between" style="width: 1000px;">
-    {# sidebar #}
-    <div style="width: 380px;">
-      <div class="card">
-        <div class="card-header d-flex justify-content-between">
-          <div>基本信息</div>
-          <a href="{{ url_for('main.resume') }}">简历</a>
+    <div class="container-fluid">
+        <div class="mt-4">
+            <ul>
+                {% for article in article_list * 10 %}
+                    <li>
+                        <div>
+                            <a class="link"
+                               href="{{ url_for('main.article', article_id=article.id) }}">{{ article.title| safe }}</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
-        <div class="card-body">
-         {{ user.info_html|safe }}
-        </div>
-      </div>
-
-      <div class="card mt-3">
-        <div class="card-header">标签</div>
-        <div class="card-body  flex-wrap">
-          {% for tag in tags %}
-            <a class="btn btn-info btn-sm mb-1" href="{{ url_for('main.posts', tag=tag.name) }}">
-              {{ tag.name }}<span class="badge badge-light ml-1">{{ tag.posts.__len__() }}</span>
-            </a>
-          {% endfor %}
-        </div>
-      </div>
-
     </div>
-
-    {# content #}
-    <div class="ml-3 w-100">
-      <div class="card">
-        <div class="card-header">文章列表</div>
-        <div class="card-body">
-          <ul class="list-group">
-            {% for post in posts %}
-              {% if not post.temporary %}
-                <li class="list-group-item">
-                  <a href="{{ url_for('main.post', post_id=post.id) }}"><h5>{{ post.title }}</h5></a>
-                  <div class="mb-3">更新于：{{ post.updated_at }}</div>
-                  <p style="color: gray;">{{ post.summary_html|safe }}</p>
-                </li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock %}
-
-
-{% block footer %}
-  {% include 'main/_footer.html' %}
 {% endblock %}

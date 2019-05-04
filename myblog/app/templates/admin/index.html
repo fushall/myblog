@@ -1,70 +1,32 @@
-{% extends 'layout/bootstrap.html' %}
+{% extends 'base/default.html' %}
 
-
-{% block title %}
-  兴小院 - 后台管理
-{% endblock %}
+{% block styles %}
+    <style>
+        .login_form {
+            display: flex;
+        }
+    </style>
+{% endblock styles %}
 
 {% block header %}
-  {% include 'admin/_header.html' %}
-  <div class="d-flex justify-content-center">
-    <div style="width: 960px;">
-      {{ message() }}
-    </div>
-  </div>
-{% endblock %}
+
+{% endblock header %}
 
 
 {% block content %}
-  <div class="container d-flex justify-content-between" style="width: 1000px;">
-    {# sidebar #}
-    <div style="width: 380px;">
-      <ul class="list-group">
-        <li class="list-group-item"><a href="{{ url_for('admin.userinfo') }}">个人信息</a></li>
-        <li class="list-group-item">√文章</li>
-        <li class="list-group-item">标签</li>
-      </ul>
-    </div>
-
-    {# content #}
-    <div class="ml-3 w-100">
-      <div class="card">
-        <div class="card-body">
-          {# 统计 #}
-          <div class="d-flex">
-            <div>全部（0）</div>
-            <div>草稿（0）</div>
-          </div>
-          {# 操作 #}
-          <div><a href="{{ url_for('admin.upload_post') }}">上传</a></div>
-          <ul class="list-group">
-            {% for post in posts %}
-              <li class="list-group-item d-flex justify-content-between">
-                <a href="{{ url_for('main.post', post_id=post.id) }}" target="_blank">
-                  {% if post.temporary %} 【临时】 {% endif %}
-                  {{ post.title }}
-                </a>
-                <div>
-                  <a href="{{ url_for('admin.upload_post', post_id=post.id) }}">替换</a>
-                  <a href="{{ url_for('admin.delete_post', post_id=post.id) }}">删除</a>
-                </div>
-              </li>
-            {% endfor %}
-          </ul>
+    <div class="container d-flex justify-content-center">
+        <div class="mt-5" style="max-width: 650px;">
+            <ul>
+                {% for article in articles %}
+                    <li>
+                        <a>{{ article.title }}</a>
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <a>可见性</a>
+                        <a>可访问</a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
-      </div>
     </div>
-  </div>
-{% endblock %}
-
-
-{% block footer %}
-  {% include 'admin/_footer.html' %}
-{% endblock %}
-
-
-{% block myscripts %}
-  <script>
-
-  </script>
-{% endblock %}
+{% endblock content %}

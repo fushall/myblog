@@ -1,25 +1,14 @@
 from . import db
 
 
-class ArticleModel(db.Model):
+class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    text = None
-
-
-class ArticleInfoModel:
-    id = None
-    article_id = None
-    content_type = ['html', ' markdown']
-
-
-class ArticleStateModel:
-    id = None
-    article_id = None
-    state = ['shown', 'hidden', 'draft']
-
-
-class ArticleCategoryModel:
-    id = None
-    article_id = None
-    name = ['技术分析']
-
+    title = db.Column(db.Unicode, nullable=False)
+    title_type = db.Column(db.UnicodeText(32))
+    abstract = db.Column(db.Unicode)
+    abstract_type = db.Column(db.UnicodeText(32))
+    text = db.Column(db.Unicode)
+    text_type = db.Column(db.UnicodeText(32))
+    visible = db.Column(db.Boolean)
+    accessible = db.Column(db.Boolean)
+    create_at = db.Column(db.DateTime)
