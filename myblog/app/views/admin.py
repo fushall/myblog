@@ -14,6 +14,20 @@ def index():
     return render_template('admin/index.html', **context)
 
 
+@blueprint.route('/new/article', methods=['GET', 'POST'])
+def new_article():
+    if request.method == 'POST':
+        print(request.form)
+    return render_template('admin/new_article.html')
+
+
+@blueprint.route('/article/<int:article_id>', methods=['GET', 'POST'])
+def article(article_id):
+    if request.method == 'POST':
+        print(request.form)
+    return render_template('admin/new_article.html')
+
+
 @blueprint.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':

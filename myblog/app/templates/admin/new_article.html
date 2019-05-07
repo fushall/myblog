@@ -1,0 +1,52 @@
+{% extends 'base/default.html' %}
+
+{% block styles %}
+    <style>
+        .textbox {
+            width: 99%;
+        }
+    </style>
+{% endblock %}
+
+
+{% block scripts %}
+    <script>
+        (function () {
+            let btn_preview = document.getElementById('preview');
+            btn_preview.addEventListener('click', function (event) {
+                let textarea_text = document.getElementById('text');
+                let div_article = document.getElementById('article');
+                div_article.innerHTML = textarea_text.value;
+                event.preventDefault();
+            });
+        }());
+    </script>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="mt-5" style="border: red 1px solid;">
+            <form class="d-flex flex-column" method="post" action="{{ url_for('admin.new_article') }}">
+                <div>标题：
+                    <textarea name="title" id="title" class="textbox" rows="1"></textarea>
+                </div>
+                <div>摘要：
+                    <textarea name="abstract" id="abstract" class="textbox" rows="3"></textarea>
+                </div>
+                <div>正文：
+                    <textarea name="text" id="text" class="textbox" rows="9"></textarea>
+                </div>
+                <div>
+                    <button id="preview">预览</button>
+                    <button id="submit">发布</button>
+                </div>
+
+            </form>
+        </div>
+
+        <div id="article" class="mt-2" style="border: green 1px solid;">
+
+        </div>
+    </div>
+{% endblock content %}
