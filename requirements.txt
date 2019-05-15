@@ -1,5 +1,10 @@
 flask
 flask-sqlalchemy
 
+celery  #celery 4.x on windows, should install eventlet package
+# on windows
+# celery -A myblog.tasks worker -P eventlet
+pymongo
+redis
 psycopg2
 bs4
