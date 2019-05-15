@@ -3,6 +3,7 @@ from flask import Flask
 
 from models import register_models
 from .views import register_views
+from .websocket import register_socketio
 
 
 def create_app():
@@ -16,5 +17,8 @@ def create_app():
 
     # register flask-sqlalchemy object
     register_models(app)
+
+    # register flask-socketio
+    register_socketio(app)
 
     return app

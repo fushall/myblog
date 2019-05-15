@@ -10,3 +10,10 @@ def register_models(app):
 
     global flask_app
     flask_app = app
+
+
+class Mixin:
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
