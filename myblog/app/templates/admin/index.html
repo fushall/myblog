@@ -9,7 +9,7 @@
     <div class="container d-flex justify-content-center">
         <div class="mt-5" style="max-width: 650px;">
             <div>
-                <button><a href="{{ url_for('admin.new_article') }}">写一篇</a></button>
+                <button><a href="{{ url_for('admin.article_editor') }}">写一篇</a></button>
             </div>
             <ul>
                 {% for article in articles %}

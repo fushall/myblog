@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, session
 from flask.blueprints import Blueprint
 
-from models.article import Article
+from models.articles import Articles, create_article as create_a_article
 
 blueprint = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -9,23 +9,30 @@ blueprint = Blueprint('admin', __name__, url_prefix='/admin')
 @blueprint.route('/')
 def index():
     context = {
-        'articles': Article.query.all()
+        'articles': Articles.query.all()
     }
     return render_template('admin/index.html', **context)
 
 
-@blueprint.route('/new/article', methods=['GET', 'POST'])
-def new_article():
-    if request.method == 'POST':
-        print(request.form)
-    return render_template('admin/new_article.html')
-
-
-@blueprint.route('/article/<int:article_id>', methods=['GET', 'POST'])
+@blueprint.route('/articles/<int:article_id>', methods=['GET'])
 def article(article_id):
+    print(article_id)
+    return render_template('admin/article_editor.html')
+
+
+@blueprint.route('/article_editor')
+def article_editor():
+    return render_template('admin/article_editor.html')
+
+
+@blueprint.route('/articles', methods=['GET', 'POST'])
+def create_article():
     if request.method == 'POST':
-        print(request.form)
-    return render_template('admin/new_article.html')
+        title = request.form.get('title')
+        abstract = request.form.get('abstract')
+        text = request.form.get('text')
+        create_a_article(title=title, abstract=abstract, text=text)
+        return redirect(url_for('admin.index'))
 
 
 @blueprint.route('/login', methods=['POST'])

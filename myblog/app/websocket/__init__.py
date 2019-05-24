@@ -1,12 +1,12 @@
-from flask_socketio import SocketIO
+from flask_sockets import Sockets
 
 flask_app = None
-socketio = SocketIO()
+sockets = Sockets()
 
 
-def register_socketio(app):
+def register_websocket(app):
     global flask_app
     flask_app = app
-    socketio.init_app(flask_app)
+    sockets.init_app(flask_app)
 
     from . import main

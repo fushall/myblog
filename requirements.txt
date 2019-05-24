@@ -1,5 +1,6 @@
 flask
 flask-sqlalchemy
+flask-sockets
 
 celery  #celery 4.x on windows, should install eventlet package
 # on windows

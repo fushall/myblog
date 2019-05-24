@@ -27,7 +27,7 @@
 {% block content %}
     <div class="container-fluid">
         <div class="mt-5" style="border: red 1px solid;">
-            <form class="d-flex flex-column" method="post" action="{{ url_for('admin.new_article') }}">
+            <form class="d-flex flex-column" method="post" action="{{ url_for('admin.create_article') }}">
                 <div>标题：
                     <textarea name="title" id="title" class="textbox" rows="1"></textarea>
                 </div>

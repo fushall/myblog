@@ -12,7 +12,7 @@ def register_models(app):
     flask_app = app
 
 
-class Mixin:
+class DataBaseMixin:
 
     def save(self):
         db.session.add(self)
