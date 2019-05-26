@@ -17,9 +17,31 @@
                 let textarea_text = document.getElementById('text');
                 let div_article = document.getElementById('article');
                 div_article.innerHTML = textarea_text.value;
+                for (let code of div_article.getElementsByTagName('code')) {
+                    code.innerText = code.innerHTML.trim();
+                }
                 event.preventDefault();
             });
         }());
+        {% if article %}
+            (function () {
+                let url = `{{ url_for('api.api_article', article_id=article.id) }}`;
+                let xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        let data = JSON.parse(xhr.responseText);
+                        let textarea_title = document.getElementById('title');
+                        textarea_title.value = data.title;
+                        let textarea_abstract = document.getElementById('abstract');
+                        textarea_abstract.value = data.abstract;
+                        let textarea_text = document.getElementById('text');
+                        textarea_text.value = data.text;
+                    }
+                };
+                xhr.open('get', url);
+                xhr.send(null);
+            }());
+        {% endif %}
     </script>
 {% endblock %}
 
@@ -27,20 +49,26 @@
 {% block content %}
     <div class="container-fluid">
         <div class="mt-5" style="border: red 1px solid;">
-            <form class="d-flex flex-column" method="post" action="{{ url_for('admin.create_article') }}">
-                <div>标题：
-                    <textarea name="title" id="title" class="textbox" rows="1"></textarea>
-                </div>
-                <div>摘要：
-                    <textarea name="abstract" id="abstract" class="textbox" rows="3"></textarea>
-                </div>
-                <div>正文：
-                    <textarea name="text" id="text" class="textbox" rows="9"></textarea>
-                </div>
-                <div>
-                    <button id="preview">预览</button>
-                    <button id="submit">发布</button>
-                </div>
+            {% if article %}
+                <form class="d-flex flex-column" method="post"
+                      action="{{ url_for('admin.edit_article', article_id=article.id) }}">
+            {% else %}
+                <form class="d-flex flex-column" method="post" action="{{ url_for('admin.create_article') }}">
+            {% endif %}
+
+            <div>标题：
+                <textarea name="title" id="title" class="textbox" rows="1"></textarea>
+            </div>
+            <div>摘要：
+                <textarea name="abstract" id="abstract" class="textbox" rows="3"></textarea>
+            </div>
+            <div>正文：
+                <textarea name="text" id="text" class="textbox" rows="9"></textarea>
+            </div>
+            <div>
+                <button id="preview">预览</button>
+                <button id="submit">{% if article %}保存修改{% else %}发布{% endif %}</button>
+            </div>
 
             </form>
         </div>

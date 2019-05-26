@@ -1,9 +1,11 @@
 import settings
 from flask import Flask
 
+from app.template_filters import register_template_filters
 from models import register_models
 from .views import register_views
 from .websocket import register_websocket
+from .api import register_api
 
 
 def create_app():
@@ -18,7 +20,13 @@ def create_app():
     # register flask-sqlalchemy object
     register_models(app)
 
-    # register flask-socketio
+    # register flask-sockets
     register_websocket(app)
+
+    # register template filters
+    register_template_filters(app)
+
+    # register api
+    register_api(app)
 
     return app

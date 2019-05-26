@@ -14,15 +14,32 @@ def index():
     return render_template('admin/index.html', **context)
 
 
-@blueprint.route('/articles/<int:article_id>', methods=['GET'])
-def article(article_id):
-    print(article_id)
-    return render_template('admin/article_editor.html')
+# @blueprint.route('/articles/<int:article_id>', methods=['GET'])
+# def article(article_id):
+#     print(article_id)
+#     return render_template('admin/article_editor.html')
 
 
 @blueprint.route('/article_editor')
 def article_editor():
     return render_template('admin/article_editor.html')
+
+
+@blueprint.route('/article_editor/<string:article_id>', methods=['GET', 'POST'])
+def edit_article(article_id):
+    article = Articles.query.get(int(article_id))
+    if request.method == 'GET':
+        if article:
+            return render_template('admin/article_editor.html', article=article)
+
+    elif request.method == 'POST':
+        if article:
+            article.title = request.form['title']
+            article.abstract = request.form['abstract']
+            article.text = request.form['text']
+            article.save()
+            return render_template('admin/article_editor.html', article=article)
+    return redirect(url_for('admin.index'))
 
 
 @blueprint.route('/articles', methods=['GET', 'POST'])

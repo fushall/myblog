@@ -3,10 +3,14 @@
 
 {% block header %}
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand mb-0 h2" style="line-height: 1.1;" href="/">fushall's blog<br>flask python 代码测试</a>
+        <div>
+            <a class="navbar-brand mb-0 h2" style="line-height: 1.1;" href="/">浮砂的博客</a>
+            <small><a href="{{ url_for('admin.index') }}">后台</a></small>
+        </div>
     </nav>
     <a href="https://github.com/fushall/myblog"><img style="position: fixed; top: 0; right: 0; border: 0;"
-  src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+                                                     src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"
+                                                     alt="Fork me on GitHub"></a>
 {% endblock %}
 
 

@@ -4,21 +4,52 @@
 
 {% endblock styles %}
 
+{% block scripts %}
+    <script>
+        function delete_article(article_id) {
+            let url = `{{ url_for('api.api_article', article_id='${article_id}') | urldecode }}`;
+            let request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (request.readyState === 4 && request.status === 204) {
+                    remove_article_item(article_id);
+                }
+            };
+            request.open('delete', url);
+            request.send(null);
+        }
+        function remove_article_item(article_id) {
+            let article_list = document.getElementById('article_list');
+            let article_item = document.getElementById(`article_item_${article_id}`);
+            article_list.removeChild(article_item);
+        }
+        function edit_article(article_id) {
+
+        }
+    </script>
+{% endblock %}
+
 
 {% block content %}
     <div class="container d-flex justify-content-center">
         <div class="mt-5" style="max-width: 650px;">
-            <div>
+            <div class="text-center" style="border: green 1px solid;">
+                <button><a href="{{ url_for('main.index') }}">回到首页</a></button>
                 <button><a href="{{ url_for('admin.article_editor') }}">写一篇</a></button>
             </div>
-            <ul>
+            <ul id="article_list">
                 {% for article in articles %}
-                    <li>
-                        <a>{{ article.title }}</a>
-                        <input type="checkbox">
-                        <input type="checkbox">
-                        <a>可见性</a>
-                        <a>可访问</a>
+                    <li id="article_item_{{ article.id }}">
+                        <div class="border-bottom border-success">
+                            <div>
+                                <a href="{{ url_for('main.article', article_id=article.id) }}">{{ article.title| safe }}</a>
+                            </div>
+                            <div>
+                                <label><input type="checkbox">可见</label>
+                                <label><input type="checkbox">可访问</label>
+                                <button><a href="{{ url_for('admin.edit_article', article_id=article.id) }}">编辑</a></button>
+                                <button onclick="delete_article({{ article.id }})">删除</button>
+                            </div>
+                        </div>
                     </li>
                 {% endfor %}
             </ul>

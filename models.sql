@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS Articles;
 CREATE TABLE IF NOT EXISTS Articles(
 	id INTEGER PRIMARY KEY,
 	title TEXT NOT NULL,
@@ -8,5 +9,5 @@ CREATE TABLE IF NOT EXISTS Articles(
 	text_type VARCHAR(32),
 	visible BOOLEAN,
 	accessible BOOLEAN,
-	create_at DATE
+	create_at TIMESTAMP WITH TIME ZONE
 );

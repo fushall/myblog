@@ -9,4 +9,7 @@ def register_websocket(app):
     flask_app = app
     sockets.init_app(flask_app)
 
-    from . import main
+
+@sockets.route('/gaga')
+def gaga():
+    pass
