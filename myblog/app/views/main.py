@@ -7,6 +7,7 @@ blueprint = Blueprint('main', __name__)
 
 @blueprint.route('/')
 def index():
+    #print(request.user_logined)
     context = {
         'article_list': Articles.query.all()
     }

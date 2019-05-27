@@ -18,7 +18,7 @@
         <div class="mt-5" style="max-width: 650px;">
             <div id="article">
                 {% if article %}
-                    <div class="mb-3">
+                    <div class="mb-3 border-bottom">
                     {{ article.title | safe }}
                     </div>
                     {% if article.text %}
@@ -41,7 +41,7 @@
 
 
                     {% endif %}
-                    <div class="text-center mr-3">
+                    <div class="text-center mt-3">
                         <p class="small" style="color: #c8c8c8;">{{ article.create_at }} 发布</p>
                     </div>
                 {% else %}

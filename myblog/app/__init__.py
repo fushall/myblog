@@ -1,6 +1,7 @@
 import settings
 from flask import Flask
 
+from app.helpers import register_helpers
 from app.template_filters import register_template_filters
 from models import register_models
 from .views import register_views
@@ -26,7 +27,10 @@ def create_app():
     # register template filters
     register_template_filters(app)
 
-    # register api
+    # register apis
     register_api(app)
+
+    # register helpers
+    register_helpers(app)
 
     return app

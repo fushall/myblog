@@ -1,0 +1,21 @@
+{% extends 'base/default.html' %}
+
+{% block styles %}
+{% endblock styles %}
+
+{% block scripts %}
+    <script>
+    </script>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <form method="POST">
+            <input id="username" name="username" placeholder="请输入账号">
+            <input id="password" name="password" placeholder="请输入密码" type="password">
+            <button id="submit">登陆</button>
+        </form>
+
+    </div>
+{% endblock content %}

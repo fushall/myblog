@@ -2,6 +2,8 @@
 
 from flask import jsonify, request
 from flask.blueprints import Blueprint
+
+from app.helpers import user_logined
 from models.articles import Articles
 
 api = Blueprint('api', __name__, url_prefix='/api')
@@ -19,7 +21,8 @@ def api_article(article_id):
     article = Articles.query.get(int(article_id))
     if request.method == 'DELETE':
         if article:
-            article.delete()
+            if user_logined():
+                article.delete()
             return '', 204
         return jsonify({'message:' '删除失败'}), 503
     elif request.method == 'GET':

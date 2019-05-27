@@ -1,6 +1,7 @@
 from flask import render_template, redirect, url_for, request, session
 from flask.blueprints import Blueprint
 
+from app.helpers import user_logined
 from models.articles import Articles, create_article as create_a_article
 
 blueprint = Blueprint('admin', __name__, url_prefix='/admin')
@@ -34,10 +35,11 @@ def edit_article(article_id):
 
     elif request.method == 'POST':
         if article:
-            article.title = request.form['title']
-            article.abstract = request.form['abstract']
-            article.text = request.form['text']
-            article.save()
+            if user_logined():
+                article.title = request.form['title']
+                article.abstract = request.form['abstract']
+                article.text = request.form['text']
+                article.save()
             return render_template('admin/article_editor.html', article=article)
     return redirect(url_for('admin.index'))
 
@@ -48,21 +50,25 @@ def create_article():
         title = request.form.get('title')
         abstract = request.form.get('abstract')
         text = request.form.get('text')
-        create_a_article(title=title, abstract=abstract, text=text)
+        if user_logined():
+            create_a_article(title=title, abstract=abstract, text=text)
         return redirect(url_for('admin.index'))
 
 
-@blueprint.route('/login', methods=['POST'])
+@blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if username == 'a' and password == 'a':
-            session['logined'] = True
+        session['username'] = username
+        session['password'] = password
+    if request.method == 'GET':
+        return render_template('admin/login.html')
     return redirect(url_for('admin.index'))
 
 
 @blueprint.route('/logout')
 def logout():
-    session['logined'] = False
+    session.pop('username')
+    session.pop('password')
     return redirect(url_for('admin.index'))
