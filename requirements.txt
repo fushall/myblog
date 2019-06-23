@@ -10,3 +10,5 @@ pymongo
 redis
 psycopg2
 bs4
+
+requests

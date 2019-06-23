@@ -4,7 +4,7 @@ from flask import jsonify, request
 from flask.blueprints import Blueprint
 
 from app.helpers import user_logined
-from models.articles import Articles
+from app.models import Articles
 
 api = Blueprint('api', __name__, url_prefix='/api')
 flask_app = None

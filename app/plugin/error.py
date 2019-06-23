@@ -1,0 +1,2 @@
+class PluginFormatError(ValueError):
+    pass

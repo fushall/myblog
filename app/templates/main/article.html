@@ -1,0 +1,59 @@
+{% extends 'base/default.html' %}
+
+{% block styles %}
+
+<style>
+    {% if has_plugin %}
+    {% endbif %}
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container d-flex justify-content-center">
+        <div class="mt-5" style="max-width: 650px;">
+            <div id="article">
+                {% if article %}
+                    <div class="mb-3 border-bottom">
+                        {{ article.title | safe }}
+                    </div>
+                    {% if article.text %}
+                        {{ article.text| safe_without_code }}
+                    {% else %}
+                        <div style="line-height: 1.2;">
+                            <p>The blog content is empty.<br>
+                                这篇博客的内容是空的。</p>
+                        </div>
+                    {% endif %}
+                    <div class="text-center mt-3">
+                        <p class="small" style="color: #c8c8c8;">{{ article.create_at }} 发布</p>
+                    </div>
+                {% else %}
+                    <div>不存在的博客</div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        (function () {
+            let article = document.getElementById('article');
+            for (let code of article.getElementsByTagName('code')) {
+                // 去掉前后空白字符
+                let raw_html = code.innerHTML;
+                code.innerText = raw_html.trim();
+            }
+        }());
+        {% if has_plugin %}
+            // 采用动态加载插件，是为了防止网络蜘蛛爬取到侵权的内容
+            (function () {
+                // plugins loading
+                {% render_javascript() %}
+            }());
+        {% endif %}
+    </script>
+{% endblock %}

@@ -1,5 +1,5 @@
-from models.articles import Articles
-from flask import render_template, request, jsonify
+from app.models import Articles
+from flask import render_template
 from flask.blueprints import Blueprint
 
 blueprint = Blueprint('main', __name__)

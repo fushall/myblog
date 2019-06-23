@@ -1,8 +1,7 @@
 # myblog
 这是基于Flask框架的个人博客，新手友好，代码中的每一个变量名和方法，
 都经过了上百次揣摩，非常适合刚入门的新手朋友，可以直接读代码，也可以改一改，
-部署到自己的VPS上。预览地址如下：[blog.nmxxy.cn](http://blog.nmxxy.cn)
-
+部署到自己的VPS上。预览地址如下：[blog.nmxxy.cn](http://blog.nmxxy.cn)  
 
 
 ### 部署环境
@@ -15,7 +14,20 @@ pip install -r requirements.txt
 ```
 
 
-
-
 ### 配置文件的修改
 配置文件在settings.py里面
+
+
+### nginx配置
+```
+server {
+    listen 80;
+    server_name blog.nmxxy.cn;
+    location / {
+        proxy_pass http://127.0.0.1:6010;
+    }
+}
+```
+
+### gunicorn 启动命令
+gunicorn -w 4 -b 127.0.0.1:6010 manage:create_app()

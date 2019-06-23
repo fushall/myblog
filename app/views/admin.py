@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, request, session
 from flask.blueprints import Blueprint
 
 from app.helpers import user_logined
-from models.articles import Articles, create_article as create_a_article
+from app.models import Articles, create_article as create_a_article
 
 blueprint = Blueprint('admin', __name__, url_prefix='/admin')
 
