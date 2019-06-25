@@ -1,8 +1,8 @@
-from flask import render_template, redirect, url_for, request, session
-from flask.blueprints import Blueprint
+from flask import request, redirect, url_for, session
 
-from app.helpers import user_logined
-from app.models import Articles, create_article as create_a_article
+from app import user_logined
+from app.models.article import Article
+from app.utils import Blueprint
 
 blueprint = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -10,28 +10,22 @@ blueprint = Blueprint('admin', __name__, url_prefix='/admin')
 @blueprint.route('/')
 def index():
     context = {
-        'articles': Articles.query.all()
+        'article_list': Article.query.all()
     }
-    return render_template('admin/index.html', **context)
+    return blueprint.render_template('index.html', **context)
 
 
-# @blueprint.route('/articles/<int:article_id>', methods=['GET'])
-# def article(article_id):
-#     print(article_id)
-#     return render_template('admin/article_editor.html')
+@blueprint.route('/editor')
+def editor():
+    return blueprint.render_template('editor.html')
 
 
-@blueprint.route('/article_editor')
-def article_editor():
-    return render_template('admin/article_editor.html')
-
-
-@blueprint.route('/article_editor/<string:article_id>', methods=['GET', 'POST'])
+@blueprint.route('/editor/<string:article_id>', methods=['GET', 'POST'])
 def edit_article(article_id):
-    article = Articles.query.get(int(article_id))
+    article = Article.query.get(int(article_id))
     if request.method == 'GET':
         if article:
-            return render_template('admin/article_editor.html', article=article)
+            return blueprint.render_template('editor.html', article=article)
 
     elif request.method == 'POST':
         if article:
@@ -40,7 +34,7 @@ def edit_article(article_id):
                 article.abstract = request.form['abstract']
                 article.text = request.form['text']
                 article.save()
-            return render_template('admin/article_editor.html', article=article)
+            return blueprint.render_template('editor.html', article=article)
     return redirect(url_for('admin.index'))
 
 
@@ -51,7 +45,7 @@ def create_article():
         abstract = request.form.get('abstract')
         text = request.form.get('text')
         if user_logined():
-            create_a_article(title=title, abstract=abstract, text=text)
+            Article.create(title=title, abstract=abstract, text=text)
         return redirect(url_for('admin.index'))
 
 
@@ -63,7 +57,7 @@ def login():
         session['username'] = username
         session['password'] = password
     if request.method == 'GET':
-        return render_template('admin/login.html')
+        return blueprint.render_template('login.html')
     return redirect(url_for('admin.index'))
 
 

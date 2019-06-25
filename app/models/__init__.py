@@ -14,10 +14,12 @@ def register_models(app):
 
 class DataBaseMixin:
 
-    def save(self):
+    def save(self, commit=True):
         db.session.add(self)
-        db.session.commit()
+        if commit:
+            db.session.commit()
 
-    def delete(self):
+    def delete(self, commit=True):
         db.session.delete(self)
-        db.session.commit()
+        if commit:
+            db.session.commit()

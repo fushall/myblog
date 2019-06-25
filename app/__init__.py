@@ -4,9 +4,9 @@ from werkzeug.urls import url_unquote
 
 import config
 from app.models import register_models
+from app.utils import register_blueprints
 from app.utils.login import user_logined
-from .api import register_api
-from .views import register_views
+
 
 
 def create_app():
@@ -15,11 +15,8 @@ def create_app():
     # load config from settings.py
     app.config.from_object(config)
 
-    # register views and blueprints
-    register_views(app)
-
-    # register apis
-    register_api(app)
+    # register all blueprints
+    register_blueprints(app)
 
     # register flask-sqlalchemy object
     register_models(app)

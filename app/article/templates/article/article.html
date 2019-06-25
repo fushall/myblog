@@ -3,8 +3,7 @@
 {% block styles %}
 
 <style>
-    {% if has_plugin %}
-    {% endbif %}
+
 </style>
 
 {% endblock %}
@@ -19,7 +18,7 @@
                         {{ article.title | safe }}
                     </div>
                     {% if article.text %}
-                        {{ article.text| safe_without_code }}
+                        {{ article.text| safe_except_code }}
                     {% else %}
                         <div style="line-height: 1.2;">
                             <p>The blog content is empty.<br>
@@ -47,13 +46,10 @@
                 let raw_html = code.innerHTML;
                 code.innerText = raw_html.trim();
             }
+            for (let plugin of article.getElementsByTagName('plugin')) {
+                // 插件相关操作
+                plugin.innerText = '66666';
+            }
         }());
-        {% if has_plugin %}
-            // 采用动态加载插件，是为了防止网络蜘蛛爬取到侵权的内容
-            (function () {
-                // plugins loading
-                {% render_javascript() %}
-            }());
-        {% endif %}
     </script>
 {% endblock %}

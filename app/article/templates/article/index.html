@@ -31,7 +31,7 @@
                     <li>
                         <div>
                             <a class="link"
-                               href="{{ url_for('main.article', article_id=article.id) }}">{{ article.title| safe }}</a>
+                               href="{{ url_for('article.article', aid=article.id) }}">{{ article.title| safe }}</a>
                         </div>
                     </li>
                 {% endfor %}

@@ -7,7 +7,7 @@
 {% block scripts %}
     <script>
         function delete_article(article_id) {
-            let url = `{{ url_for('api.api_article', article_id='${article_id}') | urldecode }}`;
+            let url = `{{ url_for('article.article', aid='${article_id}', api='v1') | urldecode }}`;
             let request = new XMLHttpRequest();
             request.onreadystatechange = function () {
                 if (request.readyState === 4 && request.status === 204) {
@@ -38,15 +38,15 @@
         {% endif %}
         <div class="mt-5" style="max-width: 650px;">
             <div class="text-center" style="border: green 1px solid;">
-                <button><a href="{{ url_for('main.index') }}">回到首页</a></button>
-                <button><a href="{{ url_for('admin.article_editor') }}">写一篇</a></button>
+                <button><a href="{{ url_for('article.index') }}">回到首页</a></button>
+                <button><a href="{{ url_for('admin.editor') }}">写一篇</a></button>
             </div>
             <ul id="article_list">
-                {% for article in articles %}
+                {% for article in article_list %}
                     <li id="article_item_{{ article.id }}">
                         <div class="border-bottom border-success">
                             <div>
-                                <a href="{{ url_for('main.article', article_id=article.id) }}">{{ article.title| safe }}</a>
+                                <a href="{{ url_for('article.article', aid=article.id) }}">{{ article.title| safe }}</a>
                             </div>
                             <div>
 {#                                <label><input type="checkbox">可见</label>#}
