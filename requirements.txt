@@ -10,5 +10,5 @@ MarkupSafe==1.0
 Pygments==2.2.0
 PyMySQL==0.8.1
 SQLAlchemy==1.2.7
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 WTForms==2.1
